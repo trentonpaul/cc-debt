@@ -38,48 +38,56 @@ function CardInfo({ idx, card, showRemove, onChangeHandler, onRemoveHandler }: C
   };
 
   return (
-    <div className="card-info">
-      <div className="input-group">
-        <label htmlFor={nameId}>Credit Card Name</label>
-        <FancyInput id={nameId} value={card.name} onChangeHandler={changeNameHandler} />
+    <div className="card-info-wrapper">
+      <div className="num-label">
+        <p>{idx + 1}.</p>
       </div>
-      <div className="input-group">
-        <label htmlFor={balanceId}>Balance</label>
-        <FancyInput
-          id={balanceId}
-          value={card.balance}
-          tag="$"
-          type="number"
-          onChangeHandler={changeBalanceHandler}
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor={minimumId}>Minimum Payment</label>
-        <FancyInput
-          id={minimumId}
-          value={card.minimum}
-          tag="$"
-          type="number"
-          onChangeHandler={changeMinimumHandler}
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor={aprId}>APR</label>
-        <FancyInput
-          id={aprId}
-          value={card.apr}
-          tag="%"
-          type="number"
-          onChangeHandler={changeAprHandler}
-        />
+      <div className="card-info">
+        <div className="input-group">
+          <label htmlFor={nameId}>Credit Card Name</label>
+          <FancyInput id={nameId} value={card.name} onChangeHandler={changeNameHandler} />
+        </div>
+        <div className="input-group">
+          <label htmlFor={balanceId}>Balance</label>
+          <FancyInput
+            id={balanceId}
+            value={card.balance}
+            tag="$"
+            type="number"
+            onChangeHandler={changeBalanceHandler}
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor={minimumId}>Minimum Payment</label>
+          <FancyInput
+            id={minimumId}
+            value={card.minimum}
+            tag="$"
+            type="number"
+            onChangeHandler={changeMinimumHandler}
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor={aprId}>APR</label>
+          <FancyInput
+            id={aprId}
+            value={card.apr}
+            tag="%"
+            type="number"
+            onChangeHandler={changeAprHandler}
+          />
+        </div>
       </div>
       {showRemove ? (
-        <GoX
-          className="remove-icon"
+        <button
+          className="remove-btn"
+          type="button"
           onClick={() => {
             onRemoveHandler(idx);
           }}
-        />
+        >
+          <GoX className="remove-icon" />
+        </button>
       ) : (
         ""
       )}

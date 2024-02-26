@@ -24,8 +24,10 @@
 .tagged-input {
   position: relative;
   display: flex;
-  width: 200px;
+  min-width: 150px;
+  width: 100%;
 }
+
 .tagged-input > span,
 .tagged-input input {
   white-space: nowrap;
@@ -73,4 +75,10 @@
 
 .no-tag {
   border-radius: 6px !important;
+}
+
+@media (max-width: 961px) {
+  .tagged-input {
+    min-width: 120px;
+  }
 }

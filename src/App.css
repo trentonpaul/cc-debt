@@ -1,8 +1,4 @@
 #root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto;
-  padding: 2rem; */
-
   --input-color: #585746;
   --input-border: var(--color-accent-muted);
   --input-background: #fff;
@@ -40,6 +36,13 @@
   margin: auto;
 }
 
+@media (max-width: 961px) {
+  .box {
+    width: 90vw;
+    margin: auto;
+  }
+}
+
 .step {
   min-height: 100px;
   margin: auto;
@@ -51,6 +54,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.budget-box input {
+  max-width: 100px;
 }
 
 .add-icon {
@@ -69,5 +76,17 @@
   border: none;
   border-radius: 5px;
   font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
+}
+
+.add-btn:disabled {
+  background-color: #93b9c3;
+  cursor: not-allowed;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

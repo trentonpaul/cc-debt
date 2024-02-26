@@ -3,6 +3,7 @@ import "./App.css";
 import FancyInput from "./components/FancyInput";
 import CardInfo from "./components/CardInfo";
 import { GoPlus } from "react-icons/go";
+import Dropdown from "./components/Dropdown";
 
 export interface Card {
   name: string;
@@ -14,6 +15,11 @@ export interface Card {
 function App() {
   const [budget, setBudget] = useState("");
   const [cards, setCards] = useState([{ name: "", balance: "", minimum: "", apr: "" }]);
+  const [strategy, setStrategy] = useState(0);
+
+  const changeStrategyHandler = (idx: number) => {
+    setStrategy(idx);
+  };
 
   const changeCardHandler = (idx: number, card: Card) => {
     const cardsCopy = [...cards];
@@ -80,28 +86,52 @@ function App() {
             Enter the following information to estimate your payoff schedule. None of this data is
             collected, and all of this is processed right here within this page.
           </p>
-          {cards.map((card, idx) => {
-            return (
-              <div key={idx}>
-                <CardInfo
-                  idx={idx}
-                  card={card}
-                  showRemove={cards.length > 1}
-                  onChangeHandler={changeCardHandler}
-                  onRemoveHandler={removeCardHandler}
-                />
-              </div>
-            );
-          })}
+          <div className="cards">
+            {cards.map((card, idx) => {
+              return (
+                <div key={idx}>
+                  <CardInfo
+                    idx={idx}
+                    card={card}
+                    showRemove={cards.length > 1}
+                    onChangeHandler={changeCardHandler}
+                    onRemoveHandler={removeCardHandler}
+                  />
+                </div>
+              );
+            })}
+          </div>
           <button
             className="add-btn"
             type="button"
+            disabled={cards.length >= 10}
             onClick={() => {
               addCardHandler();
             }}
           >
             <GoPlus className="add-icon" />
             <span>Add Card</span>
+          </button>
+        </div>
+        <div className="step">
+          <h3>Step 3: Pick Your Strategy</h3>
+          <p className="hint">
+            There are several common payoff strategies, but Debt Avalanche and Debt Snowball are the
+            most common.
+          </p>
+          <div className="budget-box">
+            <p>Select your payoff strategy:</p>
+            <Dropdown
+              options={["Debt Avalanche", "Debt Snowball"]}
+              selected={strategy}
+              setSelected={changeStrategyHandler}
+            />
+          </div>
+        </div>
+        <div className="step">
+          <h3>Step 4: Calculate</h3>
+          <button className="add-btn" type="button" onClick={() => {}}>
+            <span>Calculate</span>
           </button>
         </div>
       </div>

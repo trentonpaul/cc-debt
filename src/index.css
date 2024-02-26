@@ -22,6 +22,8 @@ input[type="number"] {
 body {
   background-color: var(--color-secondary);
   margin: auto;
+  margin-bottom: 20px;
+  overflow-x: hidden;
 }
 
 p {
@@ -53,6 +55,33 @@ h3 {
   font-weight: 600;
   /* line-height: 1.1; */
   /* color: var(--color-accent); */
+}
+
+@media (max-width: 961px) {
+  h1 {
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: 2.2em;
+    font-weight: 600;
+    /* line-height: 1.1; */
+    /* color: var(--color-accent); */
+  }
+
+  h3 {
+    font-size: 1.8em;
+    font-weight: 600;
+    /* line-height: 1.1; */
+    /* color: var(--color-accent); */
+  }
+
+  p {
+    font-size: 1em;
+    /* line-height: 1; */
+  }
 }
 
 /* :root {
