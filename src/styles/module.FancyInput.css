@@ -1,0 +1,76 @@
+.tagged-input input {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  line-height: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  color: var(--input-color);
+  border: 1px solid var(--input-border);
+  background: var(--input-background);
+  transition: border 0.3s ease;
+  &::placeholder {
+    color: var(--input-placeholder);
+  }
+  &:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+  }
+}
+
+.tagged-input {
+  position: relative;
+  display: flex;
+  width: 200px;
+}
+.tagged-input > span,
+.tagged-input input {
+  white-space: nowrap;
+  display: block;
+}
+.tagged-input > span:not(:first-child):not(:last-child),
+.tagged-input input:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+.tagged-input > span:first-child,
+.tagged-input input:first-child {
+  border-radius: 6px 0 0 6px;
+}
+.tagged-input > span:last-child,
+.tagged-input input:last-child {
+  border-radius: 0 6px 6px 0;
+}
+.tagged-input > span:not(:first-child),
+.tagged-input input:not(:first-child) {
+  margin-left: -1px;
+}
+.tagged-input input {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.tagged-input > span {
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 25px;
+  color: var(--group-color);
+  background: var(--group-background);
+  border: 1px solid var(--group-border);
+  transition: background 0.2s ease, border 0.2s ease, color 0.2s ease;
+}
+.tagged-input:focus-within > span {
+  color: var(--group-color-focus);
+  background: var(--group-background-focus);
+  border-color: var(--group-border-focus);
+}
+
+.no-tag {
+  border-radius: 6px !important;
+}

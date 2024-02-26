@@ -1,0 +1,26 @@
+.card-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group label {
+  font-weight: 500;
+}
+
+.remove-icon {
+  margin-top: 25px;
+  width: 26px;
+  height: 26px;
+}
+
+.remove-icon:hover {
+  cursor: pointer;
+}

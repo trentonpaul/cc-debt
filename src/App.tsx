@@ -1,35 +1,112 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import FancyInput from "./components/FancyInput";
+import CardInfo from "./components/CardInfo";
+import { GoPlus } from "react-icons/go";
+
+export interface Card {
+  name: string;
+  balance: string;
+  minimum: string;
+  apr: string;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [budget, setBudget] = useState("");
+  const [cards, setCards] = useState([{ name: "", balance: "", minimum: "", apr: "" }]);
+
+  const changeCardHandler = (idx: number, card: Card) => {
+    const cardsCopy = [...cards];
+    cardsCopy[idx] = {
+      name: card.name,
+      balance: card.balance,
+      minimum: card.minimum,
+      apr: card.apr,
+    };
+    setCards(cardsCopy);
+    // console.log(cards);
+  };
+
+  const removeCardHandler = (idx: number) => {
+    const cardsCopy = [...cards];
+    cardsCopy.splice(idx, 1);
+    setCards(cardsCopy);
+  };
+
+  const addCardHandler = () => {
+    const cardsCopy = [...cards];
+    cardsCopy.push({ name: "", balance: "", minimum: "", apr: "" });
+    setCards(cardsCopy);
+  };
+
+  const changeBudgetHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBudget(e.target.value);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="hero">
+        <div className="box">
+          <h1 className="title">Credit Card Payoff Calculator</h1>
+          <p className="attribution">
+            by <span>Trenton Paul</span>
+          </p>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+      <div className="box">
+        <p className="hint">
+          Credit card debt can be overbearing and even scary, but this simple tool will help find
+          you the best payoff strategy. Get started with the steps below.
         </p>
+        <div className="step">
+          <h3>Step 1: Set Your Monthly Budget</h3>
+          <p className="hint">
+            This is the amount of money per month that you will dedicate towards paying off your
+            cards. The more you put forward, the less you'll pay overall.
+          </p>
+          <div className="budget-box">
+            <p>Enter your monthly budget:</p>
+            <FancyInput
+              value={budget}
+              tag="$"
+              type="number"
+              onChangeHandler={changeBudgetHandler}
+            />
+          </div>
+        </div>
+        <div className="step">
+          <h3>Step 2: List Your Cards</h3>
+          <p className="hint">
+            Enter the following information to estimate your payoff schedule. None of this data is
+            collected, and all of this is processed right here within this page.
+          </p>
+          {cards.map((card, idx) => {
+            return (
+              <div key={idx}>
+                <CardInfo
+                  idx={idx}
+                  card={card}
+                  showRemove={cards.length > 1}
+                  onChangeHandler={changeCardHandler}
+                  onRemoveHandler={removeCardHandler}
+                />
+              </div>
+            );
+          })}
+          <button
+            className="add-btn"
+            type="button"
+            onClick={() => {
+              addCardHandler();
+            }}
+          >
+            <GoPlus className="add-icon" />
+            <span>Add Card</span>
+          </button>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

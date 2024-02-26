@@ -1,5 +1,62 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --color-primary: #0d98ba;
+  --color-secondary: #fcfaf9;
+  --color-accent: #ffc233;
+  --color-accent-muted: #ffe9b5;
+}
+
+/* REMOVE ARROWS Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+body {
+  background-color: var(--color-secondary);
+  margin: auto;
+}
+
+p {
+  font-size: 1.1em;
+  /* line-height: 1; */
+}
+
+h1,
+h2,
+h3 {
+  margin: 1.5rem 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2.4em;
+  font-weight: 600;
+  /* line-height: 1.1; */
+  /* color: var(--color-accent); */
+}
+
+h3 {
+  font-size: 2em;
+  font-weight: 600;
+  /* line-height: 1.1; */
+  /* color: var(--color-accent); */
+}
+
+/* :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -25,7 +82,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +121,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
