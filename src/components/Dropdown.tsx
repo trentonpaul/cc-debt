@@ -21,7 +21,7 @@ function Dropdown({ options, selected, setSelected }: DropdownProps) {
       >
         <span id="selected-item">{options[selected]}</span>
         <span>
-          <GoTriangleDown />
+          <GoTriangleDown className={"dropdown-arrow" + (open ? " flipped" : "")} />
         </span>
       </div>
       <div className={"dropdown-menu" + (open ? " open" : "")}>

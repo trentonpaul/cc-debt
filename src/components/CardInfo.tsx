@@ -1,15 +1,7 @@
-import { Card } from "../App";
 import FancyInput from "./FancyInput";
 import "../styles/module.CardInfo.css";
 import { GoX } from "react-icons/go";
-
-interface CardInfoProps {
-  idx: number;
-  card: Card;
-  showRemove: boolean;
-  onChangeHandler: (idx: number, card: Card) => void;
-  onRemoveHandler: (idx: number) => void;
-}
+import { CardInfoProps } from "../interfaces/interfaces";
 
 function CardInfo({ idx, card, showRemove, onChangeHandler, onRemoveHandler }: CardInfoProps) {
   const nameId = idx + "name";

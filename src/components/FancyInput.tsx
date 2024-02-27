@@ -21,12 +21,15 @@ function FancyInput({ id, value, tag, type, onChangeHandler }: FancyInputProps) 
           min="0"
           value={value}
           required
+          autoComplete="off"
           onChange={(e) => {
             onChangeHandler(e.target.value);
           }}
           onBlur={() => {
-            const fixed = parseFloat(value).toFixed(2);
-            onChangeHandler(fixed);
+            if (value) {
+              const fixed = parseFloat(value).toFixed(2);
+              onChangeHandler(fixed);
+            }
           }}
         />
       ) : (
@@ -34,9 +37,9 @@ function FancyInput({ id, value, tag, type, onChangeHandler }: FancyInputProps) 
           className={tag ? "" : "no-tag"}
           id={id}
           type={type}
-          // step="0.01"
           value={value}
           required
+          autoComplete="off"
           onChange={(e) => {
             onChangeHandler(e.target.value);
           }}

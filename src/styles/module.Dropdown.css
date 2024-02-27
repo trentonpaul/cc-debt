@@ -46,6 +46,14 @@
   border-color: var(--group-border-focus);
 }
 
+.dropdown-arrow {
+  transition: transform 0.05s ease-out;
+}
+
+.flipped {
+  transform: rotate(-180deg);
+}
+
 .dropdown-menu .item {
   padding: 8px 16px;
   cursor: pointer;

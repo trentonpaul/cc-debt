@@ -4,49 +4,66 @@ import FancyInput from "./components/FancyInput";
 import CardInfo from "./components/CardInfo";
 import { GoPlus } from "react-icons/go";
 import Dropdown from "./components/Dropdown";
-
-export interface Card {
-  name: string;
-  balance: string;
-  minimum: string;
-  apr: string;
-}
+import Calculator from "./components/Calculator";
+import { CalculatorInput, Card, CardInput } from "./interfaces/interfaces";
 
 function App() {
-  const [budget, setBudget] = useState("");
-  const [cards, setCards] = useState([{ name: "", balance: "", minimum: "", apr: "" }]);
-  const [strategy, setStrategy] = useState(0);
+  const [budget, setBudget] = useState<string>("");
+  const [cardInputs, setCardInputs] = useState<CardInput[]>([
+    { name: "", balance: "", minimum: "", apr: "" },
+  ]);
+  const [calculatorInput, setCalculatorInput] = useState<CalculatorInput>();
+  const [strategy, setStrategy] = useState<number>(0);
+
+  const strategies = ["Debt Avalanche", "Debt Snowball"];
 
   const changeStrategyHandler = (idx: number) => {
     setStrategy(idx);
   };
 
-  const changeCardHandler = (idx: number, card: Card) => {
-    const cardsCopy = [...cards];
+  const changeCardHandler = (idx: number, card: CardInput) => {
+    const cardsCopy = [...cardInputs];
     cardsCopy[idx] = {
       name: card.name,
       balance: card.balance,
       minimum: card.minimum,
       apr: card.apr,
     };
-    setCards(cardsCopy);
+    setCardInputs(cardsCopy);
     // console.log(cards);
   };
 
   const removeCardHandler = (idx: number) => {
-    const cardsCopy = [...cards];
+    const cardsCopy = [...cardInputs];
     cardsCopy.splice(idx, 1);
-    setCards(cardsCopy);
+    setCardInputs(cardsCopy);
   };
 
   const addCardHandler = () => {
-    const cardsCopy = [...cards];
+    const cardsCopy = [...cardInputs];
     cardsCopy.push({ name: "", balance: "", minimum: "", apr: "" });
-    setCards(cardsCopy);
+    setCardInputs(cardsCopy);
   };
 
   const changeBudgetHandler = (str: string) => {
     setBudget(str);
+  };
+
+  const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    const newCards: Card[] = cardInputs.map((card) => {
+      return {
+        name: card.name,
+        balance: Number(card.balance),
+        minimum: Number(card.minimum),
+        apr: Number(card.apr),
+      };
+    });
+    setCalculatorInput({
+      cards: newCards,
+      budget: Number(budget),
+      strategy: strategies[strategy],
+    });
+    e.preventDefault();
   };
 
   return (
@@ -59,12 +76,7 @@ function App() {
           </p>
         </div>
       </div>
-      <form
-        className="box"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <form className="box" onSubmit={formSubmitHandler}>
         <p className="hint">
           Credit card debt can be overbearing and even scary, but this simple tool will help find
           you the best payoff strategy. Get started with the steps below.
@@ -92,13 +104,13 @@ function App() {
             collected, and all of this is processed right here within this page.
           </p>
           <div className="cards">
-            {cards.map((card, idx) => {
+            {cardInputs.map((card, idx) => {
               return (
                 <div key={idx}>
                   <CardInfo
                     idx={idx}
                     card={card}
-                    showRemove={cards.length > 1}
+                    showRemove={cardInputs.length > 1}
                     onChangeHandler={changeCardHandler}
                     onRemoveHandler={removeCardHandler}
                   />
@@ -109,7 +121,7 @@ function App() {
           <button
             className="add-btn"
             type="button"
-            disabled={cards.length >= 10}
+            disabled={cardInputs.length >= 10}
             onClick={() => {
               addCardHandler();
             }}
@@ -127,7 +139,7 @@ function App() {
           <div className="budget-box">
             <p>Select your payoff strategy:</p>
             <Dropdown
-              options={["Debt Avalanche", "Debt Snowball"]}
+              options={strategies}
               selected={strategy}
               setSelected={changeStrategyHandler}
             />
@@ -140,6 +152,9 @@ function App() {
           </button>
         </div>
       </form>
+      <div className="box">
+        <Calculator input={calculatorInput} />
+      </div>
     </>
   );
 }
