@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CalculatorProps, PayoffStep } from "../interfaces/interfaces";
+import { CalculatorProps, Card, CardStep, PayoffStep } from "../interfaces/interfaces";
 import "../styles/module.Calculator.css";
 
 function Calculator({ input }: CalculatorProps) {
@@ -24,9 +24,9 @@ function Calculator({ input }: CalculatorProps) {
       "November",
       "December",
     ];
-    const today = Date();
-    const month = new Date().getMonth();
-    console.log("HI" + numDays(new Date().getFullYear(), month));
+    let month = new Date().getMonth();
+    let year = new Date().getFullYear();
+    const daysInMonth = numDays(new Date().getFullYear(), month);
 
     let balance = input.cards.reduce((acc, card) => {
       return acc + card.balance;
@@ -35,12 +35,67 @@ function Calculator({ input }: CalculatorProps) {
     const cards = input.cards;
     const budget = input.budget;
 
-    while (balance > 0) {
-      console.log(balance);
-      balance = Math.max(0, balance - budget);
-    }
+    const payoffSteps: PayoffStep[] = [];
 
-    console.log(balance);
+    while (balance > 0) {
+      let available = budget;
+
+      /* PAYOFF MINIMUMS */
+      const cardSteps: CardStep[] = cards.map((card) => {
+        // previous balance minus minimum or, if no previous step, the initial card balance
+        let payAmount = 0;
+        let bal = card.balance;
+        if (payoffSteps.length > 0) {
+          const lastPayoffStep: CardStep = payoffSteps[payoffSteps.length - 1].cardSteps.find(
+            (cardStep) => cardStep.card.name == card.name
+          ) as CardStep;
+          bal = lastPayoffStep.balance - lastPayoffStep.payAmount;
+
+          if (bal > 0) {
+            if (bal < card.minimum) {
+              payAmount = bal;
+            } else {
+              payAmount = card.minimum;
+            }
+          }
+        }
+        // payoffSteps.length > 0 ? -card.minimum : card.balance;
+        return { card: card, balance: bal, payAmount: payAmount, interest: 0 };
+      });
+
+      available -= cardSteps.reduce((acc, cardStep) => {
+        return acc + cardStep.payAmount;
+      }, 0);
+
+      if (payoffSteps.length > 0)
+        balance -= payoffSteps[payoffSteps.length - 1].cardSteps.reduce((acc, cardStep) => {
+          return acc + cardStep.payAmount;
+        }, 0);
+
+      while (available > 0) {
+        const maxApr: Card = cards.reduce((card1, card2) => {
+          return card1.apr > card2.apr ? card1 : card2;
+        }, cards[0]);
+
+        const maxCardStep = cardSteps.find((cardStep) => {
+          return cardStep.card.name == maxApr.name;
+        }) as CardStep;
+
+        // maxCardStep.
+      }
+
+      console.log(balance);
+
+      payoffSteps.push({ cardSteps: cardSteps, year: year, month: month });
+
+      if (month === 11) {
+        month = 0;
+        year += 1;
+      } else {
+        month += 1;
+      }
+    }
+    console.log(payoffSteps);
   }, [input]);
 
   if (!input) {

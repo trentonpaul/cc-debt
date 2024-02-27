@@ -26,12 +26,13 @@ export interface CardStep {
   card: Card;
   balance: number;
   payAmount: number;
+  interest: number;
 }
 
 export interface PayoffStep {
   year: number;
   month: number;
-  cardBalances: CardStep[];
+  cardSteps: CardStep[];
 }
 
 export interface CardInfoProps {
