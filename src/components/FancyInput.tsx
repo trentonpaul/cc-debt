@@ -5,23 +5,43 @@ interface FancyInputProps {
   value: string;
   tag?: string;
   type?: string;
-  onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeHandler: (str: string) => void;
 }
 
 function FancyInput({ id, value, tag, type, onChangeHandler }: FancyInputProps) {
   return (
     <div className="tagged-input">
       {tag ? <span>{tag}</span> : ""}
-      <input
-        className={tag ? "" : "no-tag"}
-        id={id}
-        type={type}
-        // step="0.01"
-        value={value}
-        onChange={(e) => {
-          onChangeHandler(e);
-        }}
-      />
+      {type == "number" ? (
+        <input
+          className={tag ? "" : "no-tag"}
+          id={id}
+          type={type}
+          step="0.01"
+          min="0"
+          value={value}
+          required
+          onChange={(e) => {
+            onChangeHandler(e.target.value);
+          }}
+          onBlur={() => {
+            const fixed = parseFloat(value).toFixed(2);
+            onChangeHandler(fixed);
+          }}
+        />
+      ) : (
+        <input
+          className={tag ? "" : "no-tag"}
+          id={id}
+          type={type}
+          // step="0.01"
+          value={value}
+          required
+          onChange={(e) => {
+            onChangeHandler(e.target.value);
+          }}
+        />
+      )}
     </div>
   );
 }

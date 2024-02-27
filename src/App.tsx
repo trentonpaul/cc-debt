@@ -45,8 +45,8 @@ function App() {
     setCards(cardsCopy);
   };
 
-  const changeBudgetHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBudget(e.target.value);
+  const changeBudgetHandler = (str: string) => {
+    setBudget(str);
   };
 
   return (
@@ -59,7 +59,12 @@ function App() {
           </p>
         </div>
       </div>
-      <div className="box">
+      <form
+        className="box"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <p className="hint">
           Credit card debt can be overbearing and even scary, but this simple tool will help find
           you the best payoff strategy. Get started with the steps below.
@@ -130,11 +135,11 @@ function App() {
         </div>
         <div className="step">
           <h3>Step 4: Calculate</h3>
-          <button className="add-btn" type="button" onClick={() => {}}>
+          <button className="add-btn" type="submit">
             <span>Calculate</span>
           </button>
         </div>
-      </div>
+      </form>
     </>
   );
 }

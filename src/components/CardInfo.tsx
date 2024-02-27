@@ -17,23 +17,23 @@ function CardInfo({ idx, card, showRemove, onChangeHandler, onRemoveHandler }: C
   const minimumId = idx + "minimum";
   const aprId = idx + "apr";
 
-  const changeNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    card.name = e.target.value;
+  const changeNameHandler = (str: string) => {
+    card.name = str;
     onChangeHandler(idx, card);
   };
 
-  const changeBalanceHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    card.balance = e.target.value;
+  const changeBalanceHandler = (str: string) => {
+    card.balance = str;
     onChangeHandler(idx, card);
   };
 
-  const changeMinimumHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    card.minimum = e.target.value;
+  const changeMinimumHandler = (str: string) => {
+    card.minimum = str;
     onChangeHandler(idx, card);
   };
 
-  const changeAprHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    card.apr = e.target.value;
+  const changeAprHandler = (str: string) => {
+    card.apr = str;
     onChangeHandler(idx, card);
   };
 
