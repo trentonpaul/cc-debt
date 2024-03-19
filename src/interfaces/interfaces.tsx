@@ -42,3 +42,17 @@ export interface CardInfoProps {
   onChangeHandler: (idx: number, card: CardInput) => void;
   onRemoveHandler: (idx: number) => void;
 }
+
+export interface PieChartProps {
+  balance: number;
+  interest: number;
+  width: number;
+  height: number;
+  title?: string;
+}
+
+export interface PieChartData {
+  label: string;
+  value: number;
+  color: string;
+}

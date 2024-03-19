@@ -55,7 +55,7 @@ function App() {
         name: card.name,
         balance: Number(card.balance),
         minimum: Number(card.minimum),
-        apr: Number(card.apr),
+        apr: Number(card.apr) / 100,
       };
     });
     setCalculatorInput({
